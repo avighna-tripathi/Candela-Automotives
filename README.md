@@ -33,20 +33,28 @@ Candela-Automotives/
 ## ⚙️ Setup & Installation
 
 **Clone the repository:**
+
 git clone [https://github.com/avighna-tripathi/Candela-Automotives.git](https://github.com/avighna-tripathi/Candela-Automotives.git)
+
 cd Candela-Automotives
 
 **Install dependencies:**
+
 Ensure you have a local MySQL server installed and running. Then, install the required Python libraries:
+
 pip install numpy pandas matplotlib mysql-connector-python
 
 
 **Database Setup:**
+
 Open creation_tables.py and update it with your local MySQL credentials (username and password) if necessary. Run the script to set up your database schema:
+
 python creation_tables.py
 
 **Run the Application:**
+
 Start the software by executing the main script:
+
 python "MAIN FILE.py"
 
 **👨‍💻 Author**
