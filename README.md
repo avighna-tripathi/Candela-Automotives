@@ -30,7 +30,7 @@ Candela-Automotives/
 └── Plms/                   # Additional project data
 ```
 
-##⚙️ Setup & Installation
+## ⚙️ Setup & Installation
 
 **Clone the repository:**
 git clone [https://github.com/avighna-tripathi/Candela-Automotives.git](https://github.com/avighna-tripathi/Candela-Automotives.git)
