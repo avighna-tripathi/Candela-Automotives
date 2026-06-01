@@ -66,7 +66,7 @@ def render_dataset_explorer(bundle: DatasetBundle) -> None:
     extra.metric("Null Values", int(dataset.frame.isna().sum().sum()))
 
     st.markdown("### Schema")
-    schema = dataset.frame.dtypes.astype(str).rename("dtype").reset_index(names="column")
+    schema = dataset.frame.dtypes.astype(str).rename("dtype").reset_index().rename(columns={"index": "column"})
     st.dataframe(schema, use_container_width=True)
 
     st.markdown("### Sample Rows")
