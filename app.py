@@ -99,9 +99,13 @@ def render_trend_analysis(bundle: DatasetBundle) -> None:
 
     latest = sales.iloc[-1]
     st.markdown("### Business Interpretation")
+    
+    gap_val = latest.get('target_gap_million_usd')
+    gap_str = f"${gap_val:,.1f}M" if pd.notna(gap_val) else "Unknown"
+    
     st.write(
         f"Sales closed at ${latest['sales_million_usd']:,.1f}M in {int(latest['year'])}, "
-        f"with a target gap of ${latest['target_gap_million_usd']:,.1f}M."
+        f"with a target gap of {gap_str}."
     )
     for insight in build_sales_insight_block(sales):
         st.markdown(f"- {insight}")
