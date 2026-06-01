@@ -308,14 +308,14 @@ def render_executive_summary(bundle: DatasetBundle) -> None:
 def render_hr_analytics(bundle: DatasetBundle) -> None:
     """Render HR and employee data from live MySQL database."""
     st.title("HR Analytics")
-    employee_asset = bundle.get("mysql_employee")
-    dept_asset = bundle.get("mysql_departments")
+    employee_asset = bundle.get("sqlite_employee")
+    dept_asset = bundle.get("sqlite_departments")
 
     if not employee_asset or employee_asset.frame.empty:
         st.warning("Employee records could not be loaded or are currently unavailable.")
         return
 
-    st.success("Successfully connected to live MySQL backend.")
+    st.success("Successfully connected to live SQLite backend.")
     employees = employee_asset.frame
     
     st.markdown("### Headcount Overview")
@@ -339,15 +339,15 @@ def render_hr_analytics(bundle: DatasetBundle) -> None:
 
 
 def render_product_catalog(bundle: DatasetBundle) -> None:
-    """Render product catalog from live MySQL database."""
+    """Render product catalog from live SQLite database."""
     st.title("Product Catalog Explorer")
-    catalog_asset = bundle.get("mysql_catalog")
+    catalog_asset = bundle.get("sqlite_catalog")
     
     if not catalog_asset or catalog_asset.frame.empty:
         st.warning("Catalog records could not be loaded or are currently unavailable.")
         return
 
-    st.success("Successfully connected to live MySQL backend.")
+    st.success("Successfully connected to live SQLite backend.")
     catalog = catalog_asset.frame
     
     st.markdown("### Active Vehicle Models")
