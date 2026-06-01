@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 import pandas as pd
+import mysql.connector
 
 from data.loader import read_csv
 from data.preprocessing import clean_currency_column, clean_sales_history
@@ -148,6 +149,33 @@ def _load_tv_radio_campaigns() -> DatasetAsset:
     )
 
 
+def _fetch_mysql_table(table_name: str, fallback_description: str) -> DatasetAsset:
+    """Fetch a table from the live MySQL CANDELA database with graceful failure."""
+    try:
+        connection = mysql.connector.connect(
+            host='localhost',
+            user='root',
+            password='root123',
+            database='CANDELA'
+        )
+        cursor = connection.cursor(dictionary=True)
+        cursor.execute(f"SELECT * FROM {table_name}")
+        rows = cursor.fetchall()
+        frame = pd.DataFrame(rows)
+        connection.close()
+        return DatasetAsset(
+            name=f"mysql_{table_name}",
+            description=f"Live operational data from MySQL table: {table_name}.",
+            frame=frame,
+        )
+    except Exception as e:
+        return DatasetAsset(
+            name=f"mysql_{table_name}",
+            description=f"⚠️ {fallback_description} (MySQL Connection Failed: {e})",
+            frame=pd.DataFrame(),
+        )
+
+
 def load_repository_bundle() -> DatasetBundle:
     """Load all reusable repository datasets needed by the dashboard."""
     datasets = {
@@ -158,6 +186,9 @@ def load_repository_bundle() -> DatasetBundle:
             _load_social_media_campaigns(),
             _load_news_magazine_campaigns(),
             _load_tv_radio_campaigns(),
+            _fetch_mysql_table("employee", "Employee records could not be loaded."),
+            _fetch_mysql_table("departments", "Department records could not be loaded."),
+            _fetch_mysql_table("catalog", "Vehicle catalog could not be loaded."),
         ]
     }
     return DatasetBundle(datasets=datasets)

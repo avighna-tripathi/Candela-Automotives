@@ -305,6 +305,70 @@ def render_executive_summary(bundle: DatasetBundle) -> None:
                 st.markdown(f"- {item}")
 
 
+def render_hr_analytics(bundle: DatasetBundle) -> None:
+    """Render HR and employee data from live MySQL database."""
+    st.title("HR Analytics")
+    employee_asset = bundle.get("mysql_employee")
+    dept_asset = bundle.get("mysql_departments")
+
+    if employee_asset.frame.empty:
+        st.warning(employee_asset.description)
+        return
+
+    st.success("Successfully connected to live MySQL backend.")
+    employees = employee_asset.frame
+    
+    st.markdown("### Headcount Overview")
+    col1, col2, col3 = st.columns(3)
+    col1.metric("Total Employees", len(employees))
+    if 'SALARY' in employees.columns:
+        col2.metric("Average Salary", f"${employees['SALARY'].mean():,.0f}")
+        col3.metric("Max Salary", f"${employees['SALARY'].max():,.0f}")
+    
+    if 'DEPARTMENT' in employees.columns:
+        st.markdown("### Department Distribution")
+        dept_counts = employees['DEPARTMENT'].value_counts()
+        st.bar_chart(dept_counts)
+        
+    st.markdown("### Employee Records")
+    st.dataframe(employees, use_container_width=True)
+    
+    if not dept_asset.frame.empty:
+        st.markdown("### Department Budgets")
+        st.dataframe(dept_asset.frame, use_container_width=True)
+
+
+def render_product_catalog(bundle: DatasetBundle) -> None:
+    """Render product catalog from live MySQL database."""
+    st.title("Product Catalog Explorer")
+    catalog_asset = bundle.get("mysql_catalog")
+    
+    if catalog_asset.frame.empty:
+        st.warning(catalog_asset.description)
+        return
+
+    st.success("Successfully connected to live MySQL backend.")
+    catalog = catalog_asset.frame
+    
+    st.markdown("### Active Vehicle Models")
+    st.dataframe(catalog, use_container_width=True)
+    
+    if 'model' in catalog.columns and 'base_price' in catalog.columns:
+        st.markdown("### Price Comparison")
+        st.bar_chart(catalog.set_index("model")["base_price"])
+        
+        st.markdown("### Detailed Comparison")
+        models = catalog["model"].tolist()
+        if len(models) > 0:
+            col1, col2 = st.columns(2)
+            with col1:
+                m1 = st.selectbox("Select Model 1", models, index=0)
+                st.dataframe(catalog[catalog["model"] == m1].transpose(), use_container_width=True)
+            with col2:
+                m2 = st.selectbox("Select Model 2", models, index=min(1, len(models)-1))
+                st.dataframe(catalog[catalog["model"] == m2].transpose(), use_container_width=True)
+
+
 def main() -> None:
     """Run the Streamlit application."""
     st.set_page_config(
@@ -326,6 +390,8 @@ def main() -> None:
         "Insights Summary": lambda: render_insights_summary(bundle),
         "Business Insights & Experiments": lambda: render_business_experiments(bundle),
         "Executive Summary": lambda: render_executive_summary(bundle),
+        "HR Analytics (Live)": lambda: render_hr_analytics(bundle),
+        "Product Catalog (Live)": lambda: render_product_catalog(bundle),
     }
 
     st.sidebar.title("Navigation")
