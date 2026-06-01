@@ -36,7 +36,7 @@ class DatasetBundle:
         return list(self.datasets)
 
     def get(self, name: str) -> DatasetAsset:
-        return self.datasets[name]
+        return self.datasets.get(name)
 
     def catalog_frame(self) -> pd.DataFrame:
         rows = [

@@ -311,8 +311,8 @@ def render_hr_analytics(bundle: DatasetBundle) -> None:
     employee_asset = bundle.get("mysql_employee")
     dept_asset = bundle.get("mysql_departments")
 
-    if employee_asset.frame.empty:
-        st.warning(employee_asset.description)
+    if not employee_asset or employee_asset.frame.empty:
+        st.warning("Employee records could not be loaded or are currently unavailable.")
         return
 
     st.success("Successfully connected to live MySQL backend.")
@@ -333,7 +333,7 @@ def render_hr_analytics(bundle: DatasetBundle) -> None:
     st.markdown("### Employee Records")
     st.dataframe(employees, use_container_width=True)
     
-    if not dept_asset.frame.empty:
+    if dept_asset and not dept_asset.frame.empty:
         st.markdown("### Department Budgets")
         st.dataframe(dept_asset.frame, use_container_width=True)
 
@@ -343,8 +343,8 @@ def render_product_catalog(bundle: DatasetBundle) -> None:
     st.title("Product Catalog Explorer")
     catalog_asset = bundle.get("mysql_catalog")
     
-    if catalog_asset.frame.empty:
-        st.warning(catalog_asset.description)
+    if not catalog_asset or catalog_asset.frame.empty:
+        st.warning("Catalog records could not be loaded or are currently unavailable.")
         return
 
     st.success("Successfully connected to live MySQL backend.")
