@@ -52,13 +52,13 @@ while True:
               print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
               choice2=int(input(' Enter the your choice number from the above options :'))
               if choice2==1:
-                     from youtube import view
+                     from .youtube import view
               elif choice2==2:
-                     from socialmedia import view
+                     from .socialmedia import view
               elif choice2==3:
-                     from nm import view
+                     from .nm import view
               elif choice2==4:
-                     from tvrad import view
+                     from .tvrad import view
               elif choice2==5:
                      print(" Moving back to previous menu ")
                      print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
@@ -86,13 +86,13 @@ while True:
               print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
               choice3=int(input(' Enter the your choice number from the above options :'))
               if choice3==1:
-                     from youtube import adch
+                     from .youtube import adch
               elif choice3==2:
-                     from socialmedia import adch
+                     from .socialmedia import adch
               elif choice3==3:
-                     from nm import adch
+                     from .nm import adch
               elif choice3==4:
-                     from tvrad import adch
+                     from .tvrad import adch
               elif choice3==5:
                      print(" Moving back to previous menu ")
                      print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------")

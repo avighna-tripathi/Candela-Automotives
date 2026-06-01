@@ -1,8 +1,10 @@
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
+from pathlib import Path
 from matplotlib import style
-fh=open('sales.csv','r')
+CSV_PATH = Path(__file__).resolve().with_name("sales.csv")
+fh=open(CSV_PATH,'r')
 reader=csv.reader(fh)
 reader1=list(reader)
 n=len(reader1)

@@ -1,10 +1,14 @@
 import csv
-fh=open('sales.csv','r')
+from pathlib import Path
+
+CSV_PATH = Path(__file__).resolve().with_name("sales.csv")
+
+fh=open(CSV_PATH,'r')
 reader=csv.reader(fh)
 reader1=list(reader)
 fh.close()
 n=len(reader1)
-fh1=open('sales.csv','a',newline='')
+fh1=open(CSV_PATH,'a',newline='')
 wri=csv.writer(fh1)
 while True:
        year=input("Enter The Year in which the sales' record you wanna enter :")

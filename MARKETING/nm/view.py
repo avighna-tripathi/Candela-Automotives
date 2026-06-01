@@ -1,4 +1,7 @@
 import csv
+from pathlib import Path
+
+CSV_PATH = Path(__file__).resolve().parents[1] / "newsmag.csv"
 
 def view():                                                            #coding to view the stats of Newspaper & Magazine
        while True:
@@ -13,7 +16,7 @@ def view():                                                            #coding t
               input("Press Enter")
               choice=int(input(' Enter the choice number from the above options :'))
               if choice==1:
-                     file=open('newsmag.csv','r')
+                     file=open(CSV_PATH,'r')
                      reader1_csv=csv.reader(file)
                      reader1=list(reader1_csv)
                      i=len(reader1)
@@ -27,7 +30,7 @@ def view():                                                            #coding t
                      input("Press Enter")
                      file.close()
               elif choice==2:
-                     file=open('newsmag.csv','r')
+                     file=open(CSV_PATH,'r')
                      reader2_csv=csv.reader(file)
                      reader2=list(reader2_csv)
                      l=reader2[0]

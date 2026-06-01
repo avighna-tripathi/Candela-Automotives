@@ -1,4 +1,8 @@
 import csv
+from pathlib import Path
+
+CSV_PATH = Path(__file__).resolve().parents[1] / "socmed.csv"
+
 def adch():                                                      #coding to add social media influencers and the information of deals with them and to make changes in the database 
        while True :
               print("What do you want to proceed with ?")
@@ -9,7 +13,7 @@ def adch():                                                      #coding to add 
               ch=int(input("Enter your choice number from the above options :"))
               input("Press Enter")
               if ch==1:
-                     fh=open("socmed.csv","a",newline='')
+                     fh=open(CSV_PATH,"a",newline='')
                      wri=csv.writer(fh)
                      print(" Before you proceed we would like to tell you the terms and conditions on the basis of which our company selects the youtubers !")
                      input("Press Enter to view the terms and conditions. Press enter after every condition to view the next condition")
@@ -69,7 +73,7 @@ def adch():                                                      #coding to add 
                             print()
                      fh.close()
               elif ch==2:
-                     fh=open("socmed.csv","r",newline='')
+                     fh=open(CSV_PATH,"r",newline='')
                      re=csv.reader(fh)
                      y=list(re)
                      fh.close()
@@ -88,7 +92,7 @@ def adch():                                                      #coding to add 
                                           if y[j][0]==nam:
                                                  k=int(input("Enter the number of times you want to edit the records of this influencer:"))
                                                  for s in range(k):
-                                                        fh=open("socmed.csv","w",newline='')
+                                                        fh=open(CSV_PATH,"w",newline='')
                                                         wri=csv.writer(fh)
                                                         print("what do you want to change ?")
                                                         print("------------------------------------------------------------------------------------------------------------------------------------------------------------------------")
@@ -142,7 +146,7 @@ def adch():                                                      #coding to add 
                             m=len(y)
                             for i in range(0,m):
                                    if y[i][0]==name:
-                                          fh=open("socmed.csv","w",newline='')
+                                          fh=open(CSV_PATH,"w",newline='')
                                           wri=csv.writer(fh)
                                           del y[i]
                                           wri.writerows(y)

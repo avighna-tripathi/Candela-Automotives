@@ -26,11 +26,11 @@ while True:
        print('4. Bact to previous Menu')
        Ch=int(input(' Enter your choice number from the above options yo:'))
        if Ch==1:
-              import addsal
+              from . import addsal
        elif Ch==2:
-              import viewsal
+              from . import viewsal
        elif Ch==3:
-              import grphsal
+              from . import grphsal
        elif Ch==4:
               print(' Thank you for visiting us. Hope to see You soon :)')
               break

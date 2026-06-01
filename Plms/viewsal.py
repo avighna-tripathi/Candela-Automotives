@@ -2,7 +2,9 @@ def view():
        while True:
               print(' You have chosen to view the sales manually ')
               import csv
-              fh=open('sales.csv','r')
+              from pathlib import Path
+              csv_path = Path(__file__).resolve().with_name("sales.csv")
+              fh=open(csv_path,'r')
               csv_reader=csv.reader(fh)
               reader1=list(csv_reader)
               n=len(reader1)

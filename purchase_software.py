@@ -12,7 +12,7 @@ def place_order():
     print()
     obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
     cur1=obj1.cursor()
-    cur1.execute('SELECT DISTINCT MATERIALS FROM STORE;')
+    cur1.execute('SELECT DISTINCT MATERIAL FROM STORE;')
     print("THE ORDERABLE ITEMS ARE AS FOLLOWS :")
     print()
     i=0
@@ -43,7 +43,7 @@ def place_order():
             break
         obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
         cur1=obj1.cursor()
-        cur1.execute("SELECT QUALITY_GOOD,NET_PRICE FROM STORE WHERE MATERIALS='%s'"%(a4,))
+        cur1.execute("SELECT QUALITY,NET_PRICE FROM STORE WHERE MATERIAL='%s'"%(a4,))
         m=0
         while True:
             m+=1
@@ -56,12 +56,12 @@ def place_order():
             a5=input("        Enter legible quality (EXCELLENT/GOOD/SATISFACTORY) :")
         obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
         cur1=obj1.cursor()
-        cur1.execute("SELECT NET_PRICE FROM STORE WHERE MATERIALS='%s' AND QUALITY_GOOD='%s'"%(a4,a5))
+        cur1.execute("SELECT NET_PRICE FROM STORE WHERE MATERIAL='%s' AND QUALITY='%s'"%(a4,a5))
         F=cur1.fetchall()
         obj1.close()
         obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
         cur1=obj1.cursor()
-        cur1.execute("SELECT UNIT_PURCHASE FROM STORE WHERE MATERIALS='%s' AND QUALITY_GOOD='%s'"%(a4,a5))
+        cur1.execute("SELECT UNIT FROM STORE WHERE MATERIAL='%s' AND QUALITY='%s'"%(a4,a5))
         dta=cur1.fetchall()
         obj1.close()
         print("        Enter the quantity of ",a5,' ',a4,' ',"(in ",dta[0][0],")",sep='',end=':')
@@ -72,7 +72,7 @@ def place_order():
         quantity=quantity+(a6,)
         obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
         cur1=obj1.cursor()
-        cur1.execute("UPDATE STOCKS_STORE SET QUANTITY=QUANTITY+{} WHERE MATERIALS='{}' AND QUALITY='{}'".format(a6,a4,a5))
+        cur1.execute("UPDATE STOCKS_STORE SET STOCK=STOCK+{} WHERE MATERIAL='{}' AND QUALITY='{}'".format(a6,a4,a5))
         obj1.commit()
         f=input("Do you want to continue shopping (yes/no) :")
         if f in ('yes','YES','Yes','y','Y'):
@@ -123,7 +123,7 @@ def use_goods():
         print()
         obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
         cur1=obj1.cursor()
-        cur1.execute('SELECT DISTINCT MATERIALS FROM STOCKS_STORE')
+        cur1.execute('SELECT DISTINCT MATERIAL FROM STOCKS_STORE')
         items=[]
         while True:
             a=cur1.fetchone()
@@ -157,7 +157,7 @@ def use_goods():
                     qual=input("        Enter legible quality (EXCELLENT/GOOD/SATISFACTORY) :")
                 obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
                 cur1=obj1.cursor()
-                cur1.execute("SELECT MATERIALS,QUALITY,UNIT_MEASURE FROM STOCKS_STORE WHERE MATERIALS='%s' AND QUALITY='%s'"%(i,qual))
+                cur1.execute("SELECT MATERIAL,QUALITY,UNIT FROM STOCKS_STORE WHERE MATERIAL='%s' AND QUALITY='%s'"%(i,qual))
                 datar=cur1.fetchall()
                 obj1.close()
                 print("Enter the quantity of",i,"to be ordered :",end='')
@@ -182,7 +182,7 @@ def use_goods():
             print("QUANTITY :",i[3],i[2])
             obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
             cur1=obj1.cursor()
-            cur1.execute("SELECT QUANTITY FROM STOCKS_STORE WHERE MATERIALS='%s' AND QUALITY='%s'"%(i[0],i[1]))
+            cur1.execute("SELECT STOCK FROM STOCKS_STORE WHERE MATERIAL='%s' AND QUALITY='%s'"%(i[0],i[1]))
             act_quan=cur1.fetchall()
             obj1.close()
             if i[3]>act_quan[0][0]:
@@ -190,17 +190,17 @@ def use_goods():
                 print("There was a shortage of",i[1],"quality",i[0],"which has been fixed by direct order from company !!!")
                 obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
                 cur1=obj1.cursor()
-                cur1.execute("update stocks_store set quantity=quantity+cri_min+%s where materials='%s' and quality='%s'"%(ov,i[0],i[1]))
+                cur1.execute("update stocks_store set stock=stock+cri_min+%s where material='%s' and quality='%s'"%(ov,i[0],i[1]))
                 obj1.commit()
                 obj1.close()
             obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
             cur1=obj1.cursor()
-            cur1.execute("update stocks_store set quantity=quantity-%s where materials='%s' and quality='%s'"%(i[3],i[0],i[1]))
+            cur1.execute("update stocks_store set stock=stock-%s where material='%s' and quality='%s'"%(i[3],i[0],i[1]))
             obj1.commit()
             obj1.close()
             obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
             cur1=obj1.cursor()
-            cur1.execute("update manufacturing_stocks set stock=stock+%s where materials='%s' and quality='%s'"%(i[3],i[0],i[1]))
+            cur1.execute("update manufacturing_stocks set stock=stock+%s where material='%s' and quality='%s'"%(i[3],i[0],i[1]))
             obj1.commit()
             obj1.close()
             print()
@@ -228,7 +228,7 @@ def display_stock():
     if d=='1':
         obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
         cur1=obj1.cursor()
-        cur1.execute('SELECT MATERIALS,QUALITY,QUANTITY,UNIT_MEASURE FROM STOCKS_STORE')
+        cur1.execute('SELECT MATERIAL,QUALITY,STOCK,UNIT FROM STOCKS_STORE')
         while True:
             ff=cur1.fetchone()
             if ff==None:
@@ -244,7 +244,7 @@ def display_stock():
             ap=input("Enter the product you want to search :")
             obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
             cur1=obj1.cursor()
-            cur1.execute('SELECT DISTINCT MATERIALS FROM STOCKS_STORE')
+            cur1.execute('SELECT DISTINCT MATERIAL FROM STOCKS_STORE')
             items=[]
             while True:
                 a=cur1.fetchone()
@@ -269,7 +269,7 @@ def display_stock():
                 qq=input("        Enter legible quality (EXCELLENT/GOOD/SATISFACTORY) :")
             obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
             cur1=obj1.cursor()
-            cur1.execute('SELECT MATERIALS,QUALITY,QUANTITY,UNIT_MEASURE FROM STOCKS_STORE')
+            cur1.execute('SELECT MATERIAL,QUALITY,STOCK,UNIT FROM STOCKS_STORE')
             fff=cur1.fetchall()
             for i in fff:
                 if i[0]==ap and i[1]==qq:

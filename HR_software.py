@@ -1,4 +1,5 @@
 import mysql.connector as mycon
+from ast import literal_eval
 print()
 print("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||")
 print()
@@ -6,6 +7,15 @@ print("         ********************************* WELCOME TO THE HR INTERFACE **
 print()
 print("|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||")
 print()
+def _parse_sequence_input(prompt, expected_length=None):
+    data = literal_eval(input(prompt))
+    if not isinstance(data, (list, tuple)):
+        raise ValueError("Expected a list or tuple input.")
+    values = list(data)
+    if expected_length is not None and len(values) != expected_length:
+        raise ValueError("Unexpected number of values.")
+    return values
+
 def calendar():
     print()
     print("1. March - May")
@@ -29,17 +39,17 @@ def calendar():
             print(dat[0],'.',dat[1])
         obj1.close()
         print()
-        g=eval(input("Enter the activities you choose in order of occurence (1-11).For eg, (4,2,3,....) :"))
+        g=_parse_sequence_input("Enter the activities you choose in order of occurence (1-11).For eg, (4,2,3,....) :", 9)
         print()
-        date_mar=eval(input("Enter three dates of events of march in a list .For eg,[1,16,31] :"))
+        date_mar=_parse_sequence_input("Enter three dates of events of march in a list .For eg,[1,16,31] :", 3)
         while len(date_mar)>3:
-            date_mar=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
-        date_apr=eval(input("Enter three dates of events of april in a list.For eg,[1,16,31] :"))
+            date_mar=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
+        date_apr=_parse_sequence_input("Enter three dates of events of april in a list.For eg,[1,16,31] :", 3)
         while len(date_apr)>3:
-            date_apr=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
-        date_may=eval(input("Enter three dates of events of may in a list.For eg,[1,16,31] :"))
+            date_apr=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
+        date_may=_parse_sequence_input("Enter three dates of events of may in a list.For eg,[1,16,31] :", 3)
         while len(date_may)>3:
-            date_may=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
+            date_may=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
         ff=date_mar+date_apr+date_may
         i=0
         while True:
@@ -100,17 +110,17 @@ def calendar():
             print(dat[0],'.',dat[1])
         obj1.close()
         print()
-        g=eval(input("Enter the activities you choose in order of occurence (1-11).For eg, (4,2,3,....) :"))
+        g=_parse_sequence_input("Enter the activities you choose in order of occurence (1-11).For eg, (4,2,3,....) :", 9)
         print()
-        date_mar=eval(input("Enter three dates of events of june in a list.For eg,[1,16,31] :"))
+        date_mar=_parse_sequence_input("Enter three dates of events of june in a list.For eg,[1,16,31] :", 3)
         while len(date_mar)>3:
-            date_mar=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
-        date_apr=eval(input("Enter three dates of events of july in a list.For eg,[1,16,31] :"))
+            date_mar=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
+        date_apr=_parse_sequence_input("Enter three dates of events of july in a list.For eg,[1,16,31] :", 3)
         while len(date_apr)>3:
-            date_apr=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
-        date_may=eval(input("Enter three dates of events of august in a list.For eg,[1,16,31] :"))
+            date_apr=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
+        date_may=_parse_sequence_input("Enter three dates of events of august in a list.For eg,[1,16,31] :", 3)
         while len(date_may)>3:
-            date_may=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
+            date_may=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
         ff=date_mar+date_apr+date_may
         i=0
         while True:
@@ -171,17 +181,17 @@ def calendar():
             print(dat[0],'.',dat[1])
         obj1.close()
         print()
-        g=eval(input("Enter the activities you choose in order of occurence (1-11).For eg, (4,2,3,....) :"))
+        g=_parse_sequence_input("Enter the activities you choose in order of occurence (1-11).For eg, (4,2,3,....) :", 9)
         print()
-        date_mar=eval(input("Enter three dates of events of septemberin a list.For eg,[1,16,31] :"))
+        date_mar=_parse_sequence_input("Enter three dates of events of septemberin a list.For eg,[1,16,31] :", 3)
         while len(date_mar)>3:
-            date_mar=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
-        date_apr=eval(input("Enter three dates of events of october in a list.For eg,[1,16,31] :"))
+            date_mar=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
+        date_apr=_parse_sequence_input("Enter three dates of events of october in a list.For eg,[1,16,31] :", 3)
         while len(date_apr)>3:
-            date_apr=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
-        date_may=eval(input("Enter three dates of events of november in a list.For eg,[1,16,31] :"))
+            date_apr=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
+        date_may=_parse_sequence_input("Enter three dates of events of november in a list.For eg,[1,16,31] :", 3)
         while len(date_may)>3:
-            date_may=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
+            date_may=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
         ff=date_mar+date_apr+date_may
         i=0
         while True:
@@ -242,17 +252,17 @@ def calendar():
             print(dat[0],'.',dat[1])
         obj1.close()
         print()
-        g=eval(input("Enter the activities you choose in order of occurence (1-11).For eg, (4,2,3,....) :"))
+        g=_parse_sequence_input("Enter the activities you choose in order of occurence (1-11).For eg, (4,2,3,....) :", 9)
         print()
-        date_mar=eval(input("Enter three dates of events of december in a list.For eg,[1,16,31] :"))
+        date_mar=_parse_sequence_input("Enter three dates of events of december in a list.For eg,[1,16,31] :", 3)
         while len(date_mar)>3:
-            date_mar=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
-        date_apr=eval(input("Enter three dates of events of january in a list.For eg,[1,16,31] :"))
+            date_mar=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
+        date_apr=_parse_sequence_input("Enter three dates of events of january in a list.For eg,[1,16,31] :", 3)
         while len(date_apr)>3:
-            date_apr=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
-        date_may=eval(input("Enter three dates of events of february in a list.For eg,[1,16,31] :"))
+            date_apr=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
+        date_may=_parse_sequence_input("Enter three dates of events of february in a list.For eg,[1,16,31] :", 3)
         while len(date_may)>3:
-            date_may=eval(input("Please enter only three dates.For eg,[1,16,31] :"))
+            date_may=_parse_sequence_input("Please enter only three dates.For eg,[1,16,31] :", 3)
         ff=date_mar+date_apr+date_may
         i=0
         while True:
@@ -424,7 +434,12 @@ def recruit():
                 sno='CAN0'+y
                 obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
                 cur1=obj1.cursor()
-                cur1.execute("INSERT INTO EMPLOYEE VALUES('{}','{}','{}','{}',{},'{}')".format(sno,g[1],'DESIGN',oi,sal,date))
+                cur1.execute(
+                    "INSERT INTO EMPLOYEE (EMP_ID,EMP_NAME,DEPARTMENT,DESIGNATION,SALARY,DOJ,POINTS,NO_WARNINGS,BONUS) "
+                    "VALUES('{}','{}','{}','{}',{},'{}',{},{},{})".format(
+                        sno, g[1], 'DESIGN', oi, sal, date, 0, 0, 0
+                    )
+                )
                 obj1.commit()
                 cur1.close()
                 print()
@@ -530,12 +545,12 @@ def complaint():
             cur1=obj1.cursor()
             abcd=ffff[6]-15
             efgh=ffff[7]+1
-            cur1.execute("UPDATE EMPLOYEE SET POINTS={} AND NO_WARNING={} WHERE EMP_ID='{}'".format(abcd,efgh,name))
+            cur1.execute("UPDATE EMPLOYEE SET POINTS={}, NO_WARNINGS={} WHERE EMP_ID='{}'".format(abcd,efgh,name))
             obj1.commit()
             obj1.close()
             obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
             cur1=obj1.cursor()
-            cur1.execute("SELECT * FROM EMPLOYEE WHERE NO_WARNING=%s"%(3))
+            cur1.execute("SELECT * FROM EMPLOYEE WHERE NO_WARNINGS=%s"%(3))
             erase=cur1.fetchone()
             obj1.close()
             if erase!=None:
@@ -676,7 +691,7 @@ def bonus():
             obj1=mycon.connect(host='localhost',user='root',password='root123',database='CANDELA')
             cur1=obj1.cursor()
             X=each*((points[i]+1)-cri)
-            cur1.execute("UPDATE EMPLOYEE SET POINTS=%s AND BONUS=%s WHERE EMP_ID='%s'"%(0,X,g[i]))
+            cur1.execute("UPDATE EMPLOYEE SET POINTS=%s, BONUS=%s WHERE EMP_ID='%s'"%(0,X,g[i]))
             obj1.commit()
         print()
         print("SUCCESSFULLY GIVEN ALL THE DESERVING PEOPLE BONUS FOR THE QUATER.....(^___^)")
